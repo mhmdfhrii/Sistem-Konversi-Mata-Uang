@@ -1,28 +1,5 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-import locale
-
-class KonverterMataUang:
-    def __init__(self):  
-        self.nilai_tukar = {
-            "IDR": 1,
-            "MYR": 3400,
-            "SGD": 11500,
-            "THB": 440,
-            "PHP": 270,
-            "JPY": 120,
-            "USD": 15000,
-            "EUR": 17000
-        }
-
-    def konversi(self, jumlah, dari_mata_uang, ke_mata_uang):
-        if dari_mata_uang not in self.nilai_tukar or ke_mata_uang not in self.nilai_tukar:
-            return None
-
-        jumlah_dalam_idr = jumlah * self.nilai_tukar[dari_mata_uang]
-        hasil = jumlah_dalam_idr / self.nilai_tukar[ke_mata_uang]
-        return hasil
-
 
 class AplikasiKonversiMataUang:
     def __init__(self, root):
@@ -33,21 +10,16 @@ class AplikasiKonversiMataUang:
 
         self.konverter = KonverterMataUang()
         self.riwayat = []
-        locale.setlocale(locale.LC_ALL, 'id_ID.UTF-8')
         self.font = ("Helvetica", 12)
         self.tampilan_awal()
 
     def tampilan_awal(self):
-        self.clear_window()
-
         tk.Label(self.root, text="Selamat Datang di Sistem Konversi Mata Uang",
                  font=("Helvetica", 18, "bold"), bg="#e5e5e5").pack(pady=20)
         tk.Label(self.root, text="Masukkan nama Anda", font=self.font, bg="#e5e5e5").pack(pady=10)
-
         tk.Label(self.root, text="Nama:", font=self.font, bg="#e5e5e5").pack(pady=5)
         self.nama_entry = tk.Entry(self.root, font=self.font)
         self.nama_entry.pack(pady=20)
-
         tk.Button(self.root, text="Next", font=self.font, bg="red", fg="white",
                   command=self.tampilan_layar_konversi).pack(pady=20)
 
@@ -87,7 +59,7 @@ class AplikasiKonversiMataUang:
         self.kurs_label.pack(pady=5)
 
         tk.Button(self.root, text="Konversi", font=self.font, bg="blue", fg="white",
-                  command=self.konversi_uang).pack(pady=15)
+                    command=self.konversi_uang).pack(pady=15)
         self.hasil_label = tk.Label(self.root, text="", font=("Helvetica", 14, "bold"), fg="green", bg="#90EE90")
         self.hasil_label.pack(pady=10)
 
@@ -155,6 +127,27 @@ class AplikasiKonversiMataUang:
     def clear_window(self):
         for widget in self.root.winfo_children():
             widget.destroy()
+
+class KonverterMataUang:
+    def __init__(self):  
+        self.nilai_tukar = {
+            "IDR": 1,
+            "MYR": 3400,
+            "SGD": 11500,
+            "THB": 440,
+            "PHP": 270,
+            "JPY": 120,
+            "USD": 15000,
+            "EUR": 17000
+        }
+
+    def konversi(self, jumlah, dari_mata_uang, ke_mata_uang):
+        if dari_mata_uang not in self.nilai_tukar or ke_mata_uang not in self.nilai_tukar:
+            return None
+
+        jumlah_dalam_idr = jumlah * self.nilai_tukar[dari_mata_uang]
+        hasil = jumlah_dalam_idr / self.nilai_tukar[ke_mata_uang]
+        return hasil
 
 if __name__ == "__main__":
     root = tk.Tk()
